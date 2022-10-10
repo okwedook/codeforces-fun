@@ -1,4 +1,4 @@
-from base import Requester
+from lib import Requester
 
 requester = Requester()
 
