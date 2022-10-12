@@ -4,7 +4,8 @@ import random
 import hashlib
 import subprocess
 
-CODEFORCES_API = "https://codeforces.com/api/"
+CODEFORCES = "https://codeforces.com/"
+CODEFORCES_API = f"{CODEFORCES}/api/"
 
 def fill_tilde(file_name):
     return subprocess.check_output(f"echo {file_name}", shell=True)[:-1]
@@ -28,6 +29,15 @@ class Requester:
                 encoding="utf-8"
             )
         )
+
+    def make_raw_query(self, link):
+        try:
+            response = requests.get(f"{CODEFORCES}{link}")
+        except requests.exceptions.RequestException as e:
+            raise SystemExit(e)
+
+        return response.text
+
 
     def make_api_query(self, handler, params):
         params = {
